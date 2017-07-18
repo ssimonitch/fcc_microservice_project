@@ -3,10 +3,9 @@ const moment = require('moment');
 module.exports = {
   
   timestamp(req, res) {
-    // grab date from body if post or default to pathname for get
-    const date = req.body.date;
-    
-    return res.status(200).send({ message: res.headers})
+    // grab date from body if POST
+    // decode URI and extract path 
+    const date = req.body.date || decodeURI(req.url).split('/')[3];
     
     if (!date) {
       return res.status(422).send({ message: 'Must provide date'});
