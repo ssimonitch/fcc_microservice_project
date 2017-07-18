@@ -10,6 +10,7 @@ module.exports = (app) => {
     res.status(200).send({ message: 'Please visit https://fierce-sociology.glitch.me/ for info' });
   });
   
+  app.get('/api/timestamp', controllers.timestamp);
   app.post('/api/timestamp', controllers.timestamp);
   
   app.get('*', (req, res) => res.status(404).send({

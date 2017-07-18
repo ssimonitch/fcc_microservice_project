@@ -3,7 +3,8 @@ const moment = require('moment');
 module.exports = {
   
   timestamp(req, res) {
-    const date = req.body.date;
+    // grab date from body if post or default to pathname for get
+    const date = req.body.date || window.location.pathname.split('/')[1];
     
     if (!date) {
       return res.status(422).send({ message: 'Must provide date'});
