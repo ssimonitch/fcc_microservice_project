@@ -12,7 +12,9 @@ module.exports = (app) => {
     });
   });
   
-  app.get('*', (req, res) => res.status(200).send({
-  message: 'Nothing here.'
+  app.post('/api', controller.convertUnix);
+  
+  app.get('*', (req, res) => res.status(404).send({
+  message: 'Not found'
 }))
 }
