@@ -17,12 +17,13 @@ $(function() {
     
     var post = $.post(url, JSON.stringify({ date: date}), 'json');
     
-    console.log(post);
-    
     post.done(function(data) {
       $('#unix').text('UNIX: ' + data.unix);
-      $('#native').text('NATIVE: ' + data.native);
-    })
+      $('#natural').text('NATURAL: ' + data.natural);
+      console.log(data);
+    });
+    
+    $("input[name='date']").val('');
   });
 
 });
