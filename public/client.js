@@ -15,11 +15,14 @@ $(function() {
         date = $form.find( "input[name='date']" ).val(),
         url = $form.attr( "action" );
     
-    var result = $.post(url, { date: date}, 'json');
+    var post = $.post(url, JSON.stringify({ date: date}), 'json');
     
-    $.post('/api/timestamp', { date: date }, function(data) {
-      console.log(data)
-    }, "json");
+    console.log(post);
+    
+    post.done(function(data) {
+      $('#unix').text('UNIX: ' + data.unix);
+      $('#native').text('NATIVE: ' + data.native);
+    })
   });
 
 });
