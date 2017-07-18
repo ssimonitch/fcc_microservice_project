@@ -1,39 +1,29 @@
-// server.js
-// where your node app starts
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const express = require('express');
 
-// init project
-var express = require('express');
-var app = express();
+const app = express();
 
-// we've started you off with Express, 
-// but feel free to use whatever libs or frameworks you'd like through `package.json`.
-
-// http://expressjs.com/en/starter/static-files.html
+// middleware
+app.use(morgan('combined'));
 app.use(express.static('public'));
+app.use(bodyParser.json({ type: '*/*'}));
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function (request, response) {
+app.get("/", (request, response) => {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get("/dreams", function (request, response) {
-  response.send(dreams);
-});
-
-// could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
-app.post("/dreams", function (request, response) {
-  dreams.push(request.query.dream);
+app.get("/", (request, response) => {
   response.sendStatus(200);
 });
 
-// Simple in-memory store for now
-var dreams = [
-  "Find and count some sheep",
-  "Climb a really tall mountain",
-  "Wash the dishes"
-];
+// could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
+app.post("/", (request, response) => {
+  response.sendStatus(200).send();
+});
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
+const listener = app.listen(process.env.PORT, () => {
+  console.log(`Your app is listening on port ${listener.address().port}`);
 });
