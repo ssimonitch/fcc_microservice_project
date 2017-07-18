@@ -37,14 +37,24 @@
             </a>
           </p>
         </div>
-          <a href="https://fierce-sociology.glitch.me/api/timestamp" target="_blank">
-            <p>
-              <code>POST https://fierce-sociology.glitch.me/api/timestamp</code>
-            </p>
-          </a>
+        <div class="code-block">
+          <p>POST 
+            <a href="https://fierce-sociology.glitch.me/api/timestamp" target="_blank">
+              <code>https://fierce-sociology.glitch.me/api/timestamp</code>
+            </a>
+          </p>
         </div>
-        <div>
+        <div id="timestamp-demo">
           <h3>Demo</h3>
+          <form action="/api/timestamp" method="post">
+            <label for="date">Enter date in any format (including UNIX)</label>
+            <input name="date" type="text">
+            <button>Send</button>
+          </form>
+          <div>
+            <span id="unix"></span>
+            <span id="native"></span>
+          </div>
         </div>
         
       </section>
