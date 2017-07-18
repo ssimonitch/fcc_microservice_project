@@ -3,8 +3,8 @@ const moment = require('moment');
 module.exports = {
   
   timestamp(req, res) {
-    // grab date from body if POST
-    // decode URI and extract path 
+    // grab date from body for POST
+    // decode URI and extract path string for GET
     const date = req.body.date || decodeURI(req.url).split('/')[3];
     
     if (!date) {
