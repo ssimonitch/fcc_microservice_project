@@ -8,11 +8,18 @@ $(function() {
   // });
 
   $('#timestamp-form').submit(function(event) {
+    
     event.preventDefault();
-    var date = $('input').val();
-    $.post('/api/timestamp', { date: date }, function() {
-      
-    });
+    
+    var $form = $( this ),
+        date = $form.find( "input[name='date']" ).val(),
+        url = $form.attr( "action" );
+    
+    var result = $.post(url, { date: date}, 'json');
+    
+    $.post('/api/timestamp', { date: date }, function(data) {
+      console.log(data)
+    }, "json");
   });
 
 });

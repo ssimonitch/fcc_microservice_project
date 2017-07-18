@@ -51,7 +51,7 @@
         
         <div id="timestamp-demo">
           <h3>Demo</h3>
-          <form action="/api/timestamp" method="post" id="timestamp-form">
+          <form action="/" id="timestamp-form">
             <div class="form-field">
               <label for="date">Enter date in any format (including UNIX)</label>
               <input name="date" type="text">
@@ -60,7 +60,7 @@
               <button>Send</button>
             </div>
           </form>
-          <div>
+          <div id="timestamp-results">
             <span id="unix"></span>
             <span id="native"></span>
           </div>
