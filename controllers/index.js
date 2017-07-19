@@ -40,7 +40,9 @@ module.exports = {
   urlShortener(req, res) {
     const url = req.body.url || decodeURI(req.url).split('/api/shorten/')[1];
     
-    if (!isUrl)
+    if (!isUrl(url)) {
+      return res.status(422).send({ error: 'Must provide valid url'});
+    }
 
     return res.status(200).send({ url });
   }
