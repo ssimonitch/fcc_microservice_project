@@ -37,7 +37,8 @@ module.exports = {
   },
   
   urlShortener(req, res) {
+  const url = req.body.url || decodeURI(req.url).split('/').join(;
     
-  return res.status(200).send({ message: 'hello'});
+  return res.status(200).send({ url });
 }
 }
