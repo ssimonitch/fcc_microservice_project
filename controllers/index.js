@@ -34,5 +34,10 @@ module.exports = {
     const software = platform.parse(req.headers["user-agent"]).description;
     
     return res.status(200).send({ ipaddress, language, software })
-  }
+  },
+  
+  urlShortener(req, res) {
+    
+  return res.status(200).send({ message: 'hello'});
+}
 }

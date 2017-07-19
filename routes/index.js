@@ -13,7 +13,9 @@ module.exports = (app) => {
   app.get('/api/timestamp/*', controllers.timestamp);
   app.post('/api/timestamp', controllers.timestamp);
   
-  app.get('/api/whoami', controllers.headerParser);
+  app.get('/api/whoami', controllers.headerParser); 
+  
+  app.get('/api/shorten/*', controllers.urlShortener);
   
   app.get('*', (req, res) => res.status(404).send({
   message: 'Not found'
