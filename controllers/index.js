@@ -31,7 +31,7 @@ module.exports = {
   headerParser(req, res) {
     const ipaddress = req.headers["x-forwarded-for"].split(",")[0];
     const language = req.headers["accept-language"].split(",")[0];
-    const software = platform.os;
+    const software = platform.parse(req.headers["user-agent"]).description;
     
     return res.status(200).send({ ipaddress, language, software })
   }
