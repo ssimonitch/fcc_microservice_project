@@ -1,4 +1,5 @@
 const moment = require('moment');
+const platform = require('platform');
 
 module.exports = {
   
@@ -28,8 +29,10 @@ module.exports = {
   },
   
   headerParser(req, res) {
-    x-forwarded-for = req.headers;
+    const ipaddress = req.headers["x-forwarded-for"].split(",")[0];
+    const language = req.headers["accept-language"].split(",")[0];
+    const software = platform.os;
     
-    return res.status(200).send({ message: headers })
+    return res.status(200).send({ ipaddress, language, software })
   }
 }
