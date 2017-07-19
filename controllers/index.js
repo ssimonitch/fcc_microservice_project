@@ -25,5 +25,11 @@ module.exports = {
       
       return res.status(422).send({ unix: null, natural: null });
     }
+  },
+  
+  headerParser(req, res) {
+    x-forwarded-for = req.headers;
+    
+    return res.status(200).send({ message: headers })
   }
 }
