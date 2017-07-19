@@ -1,4 +1,5 @@
 const moment = require('moment');
+const isUrl = require('is-url');
 const platform = require('platform');
 
 module.exports = {
@@ -38,6 +39,8 @@ module.exports = {
   
   urlShortener(req, res) {
     const url = req.body.url || decodeURI(req.url).split('/api/shorten/')[1];
+    
+    if (!isUrl)
 
     return res.status(200).send({ url });
   }
