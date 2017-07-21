@@ -57,6 +57,10 @@ button:active {
   box-shadow: none;
 }
 
+a {
+  text-decoration: none;
+}
+
 li {
   margin-bottom: 5px;
 }
@@ -71,6 +75,46 @@ footer > a {
   color: #BBBBBB;
 }
 
-.nicejob {
-  text-decoration: line-through;
+/* DANK STYLES */
+
+.code-block {
+  display: table;
+  font-family: monospace;
+  vertical-align: middle;
+}
+
+.code-block p {
+  background-color: seashell;
+}
+
+#protip {
+  margin: 20px 0 0 10px;
+}
+
+.protip span {
+  font-weight: 600;
+}
+
+.killer {
+  color: #36fa09;
+   font: bold 28px Helvetica, Arial, Sans-Serif;
+   text-shadow: 1px 1px #fe03b7,
+                2px 2px #fe03b7,
+                3px 3px #fe03b7;
+   -webkit-transition: all 0.12s ease-out;
+   -moz-transition:    all 0.12s ease-out;
+   -ms-transition:     all 0.12s ease-out;
+   -o-transition:      all 0.12s ease-out;
+}
+
+.killer:hover {
+  position: relative;
+   top: -3px;
+   left: -3px;
+   text-shadow: 1px 1px #fe03b7,
+                2px 2px #fe03b7,
+                3px 3px #fe03b7,
+                4px 4px #fe03b7,
+                5px 5px #fe03b7,
+                6px 6px #fe03b7;
 }

@@ -1,102 +1,137 @@
-<!-- This is a static file -->
-<!-- served from your routes in server.js -->
-
-<!-- You might want to try something fancier: -->
-<!-- html/nunjucks docs: https://mozilla.github.io/nunjucks/ -->
-<!-- pug: https://pugjs.org/ -->
-<!-- haml: http://haml.info/ -->
-<!-- hbs(handlebars): http://handlebarsjs.com/ -->
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Welcome to Glitch!</title>
-    <meta name="fCC microservices" content="freeCodeCamp microservice projects">
-    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/style.css">
-  </head>
-  <body>
-    <header>
-      <h1>freeCodeCamp Microservice Projects</h1>
-    </header>
 
-    <main>
-      
-      <section id="timestamp-api">
-        <h2>Timestamp API</h2>
-        <h3>Usage</h3>
-        <div>
-          Send string with date in any format to recieve UNIX timestamp and formatted date (MM DD, YYY) in response body. Can be GET or POST request.
-        </div>
-        
-        <div class="code-block">
-          <p>GET 
-            <a href="https://fierce-sociology.glitch.me/api/timestamp/1500349847" target="_blank">
+<head>
+  <title>Welcome to Glitch!</title>
+  <meta name="fCC microservices" content="freeCodeCamp microservice projects">
+  <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/style.css">
+  <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <h1>freeCodeCamp Microservice Projects</h1>
+  </header>
+
+  <main>
+
+    <section id="timestamp-api">
+      <h2>Timestamp API</h2>
+      <h3>Usage</h3>
+      <div>
+        Send string with date in any format to recieve UNIX timestamp and formatted date (MM DD, YYY) in response body. Can be GET or POST request.
+      </div>
+
+      <div class="code-block">
+        <p>GET
+          <a href="https://fierce-sociology.glitch.me/api/timestamp/1500349847" target="_blank">
               <code>https://fierce-sociology.glitch.me/api/timestamp/1500349847</code>
             </a>
-          </p>
-        </div>
-        
-        <div class="code-block">
-          <p>POST 
-            <a href="https://fierce-sociology.glitch.me/api/timestamp" target="_blank">
+        </p>
+      </div>
+
+      <div class="code-block">
+        <p>POST
+          <a href="https://fierce-sociology.glitch.me/api/timestamp" target="_blank">
               <code>https://fierce-sociology.glitch.me/api/timestamp</code>
             </a>
-          </p>
-        </div>
-        
-        <div id="timestamp-demo">
-          <h3>Demo</h3>
-          <form action="/api/timestamp" id="timestamp-form">
-            <div class="form-field">
-              <label for="date">Enter date in any format (including UNIX)</label>
-              <input name="date" type="text">
-            </div>
-            <div class="form-field">
-              <button>Send</button>
-            </div>
-          </form>
-        </div>
-        
-        <div id="timestamp-results">
-          <span id="unix"></span>
-          <span id="natural"></span>
-        </div>
-      </section>
-      
-      <section id="header-api">
-        
-        <h2>Request Header Parser Microservice</h2>
-        <h3>Usage</h3>
-        <div>
-          Visit endpoint to recieve information about your clinet environment.
-        </div>
-        
-        <div class="code-block">
-          <p>GET 
-            <a href="https://fierce-sociology.glitch.me/api/whoami" target="_blank">
+        </p>
+      </div>
+
+      <div id="timestamp-demo">
+        <h3>Demo</h3>
+        <form action="/api/timestamp" id="timestamp-form">
+          <div class="form-field">
+            <label for="date">Enter date in any format (including UNIX)</label>
+            <input name="date" type="text">
+          </div>
+          <div class="form-field">
+            <button>Send</button>
+          </div>
+        </form>
+      </div>
+
+      <div id="timestamp-results">
+        <span id="unix"></span>
+        <span id="natural"></span>
+      </div>
+    </section>
+
+    <section id="header-api">
+      <h2>Request Header Parser Microservice</h2>
+      <h3>Usage</h3>
+      <div>
+        Visit endpoint to recieve information about your client environment.
+      </div>
+
+      <div class="code-block">
+        <p>GET
+          <a href="https://fierce-sociology.glitch.me/api/whoami" target="_blank">
               <code>https://fierce-sociology.glitch.me/api/whoami</code>
             </a>
-          </p>
-        </div>
-        
-      </section>
-    </main>
+        </p>
+      </div>
+    </section>
 
-    <footer>
-      <a href="https://github.com/ssimonitch">
+    <section id="shorten-api">
+      <h2>Url Shortener Microservice</h2>
+      <h3>Usage</h3>
+      <div>
+        Create unique short URLs. Persists data to postgresql database in the <i class="em em-cloud"></i>. Short url parameter generated by converting unique integer to base 36.
+      </div>
+
+      <div class="code-block">
+        <p>GET
+          <a href="https://fierce-sociology.glitch.me/api/shorten/https://www.sltls.org" target="_blank">
+              <code>https://fierce-sociology.glitch.me/api/shorten/https://www.sltls.org</code>
+            </a>
+        </p>
+      </div>
+      <div class="code-block">
+        <p>POST
+          <a href="https://fierce-sociology.glitch.me/api/shorten" target="_blank">
+              <code>https://fierce-sociology.glitch.me/api/shorten</code>
+            </a>
+        </p>
+      </div>
+
+      <div id="shorten-demo">
+        <h3>Demo</h3>
+        <form action="/api/shorten" id="shorten-form">
+          <div class="form-field">
+            <label for="long_url">Enter a url to shorten</label>
+            <input name="long_url" type="url">
+          </div>
+          <div class="form-field">
+            <button>Send</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="demo-results" id="shorten-results">
+        <span hidden="true"><i class="em em-link"></i> </span><span id="short_url"></span>
+      </div>
+
+      <div class="protip" id="protip" hidden>
+        <span>PROTIP</span> add a "+" to the end of your short url to get some <span class="killer">killer stats</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a href="https://github.com/ssimonitch">
         created by @ssimonitch
       </a>
-    </footer>
+  </footer>
 
-    <!-- Your web-app is https, so your scripts need to be too -->
-    <script src="https://code.jquery.com/jquery-2.2.1.min.js"
-            integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
-            crossorigin="anonymous"></script>
-    <script src="/client.js"></script>
+  <!-- Your web-app is https, so your scripts need to be too -->
+  <script src="https://code.jquery.com/jquery-2.2.1.min.js" integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00=" crossorigin="anonymous"></script>
+  <script src="/client.js"></script>
 
-  </body>
+</body>
+
 </html>
