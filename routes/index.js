@@ -34,6 +34,7 @@ module.exports = (app) => {
   // URL SHORTENER
   app.get('/api/shorten/*', controllers.urlShortener);
   app.post('/api/shorten', controllers.urlShortener);
+  app.get('/:encoded_url+', controllers.urlRouterStats);
   app.get('/:encoded_url', controllers.urlRouter);
 
   // 404 CATCH-ALL

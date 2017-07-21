@@ -78,6 +78,49 @@ module.exports = {
     const short_url = req.params.encoded_url;
 
     ( async () => {
+      // validate link exists
+      const { rows: [{exists}] } = await db.query(`
+        SELECT EXISTS(SELECT 1 FROM urls WHERE short_url=$1)
+      `, [short_url]);
+
+      if (!exists) {
+        return res.status(404).send({error: 'Not found'});
+      }
+
+      // retrieve long_url, update last_access_at and update count
+      try {
+        await db.query('BEGIN');
+
+        const { rows: [{long_url}] } = await db.query(`
+          SELECT long_url FROM urls WHERE short_url=$1;
+        `, [short_url]);
+
+        await db.query(`
+          UPDATE urls SET last_access_at = CURRENT_TIMESTAMP WHERE short_url=$1
+          `, [short_url]);
+
+        await db.query(`
+          UPDATE urls SET access_count = access_count + 1 WHERE short_url=$1
+          `, [short_url]);
+
+        await db.query('COMMIT');
+        await res.redirect(301, long_url);
+      } catch (error) {
+        await db.query('ROLLBACK');
+        throw error;
+      }
+    })().catch(error => console.log(error));
+  },
+
+  // git sum stats
+  urlRouterStats (req, res, next) {
+    if (req.params.encoded_url !== '+') {
+      return next();
+    }
+    // grab the short_url from path
+    const [ short_url ] = (/[^/+]+/gi).exec(req.path);
+
+    ( async () => {
       // validate
       const { rows: [{exists}] } = await db.query(`
         SELECT EXISTS(SELECT 1 FROM urls WHERE short_url=$1)
@@ -87,12 +130,20 @@ module.exports = {
         return res.status(404).send({error: 'Not found'});
       }
 
-      // retrieve long_url
-      const { rows: [{long_url}] } = await db.query(`
-        SELECT long_url FROM urls WHERE short_url=$1
+      // create new row with id
+      const { rows } = await db.query(`
+        SELECT * FROM urls WHERE short_url=$1
       `, [short_url]);
 
-      res.redirect(301, long_url);
+      const payload = {
+        created_at: moment(rows[0].createdAt).format('dddd, MMMM Do YYYY, h:mm:ss a'),
+        long_url: rows[0].long_url,
+        short_url: `${req.protocol}://${req.get('host')}/${rows[0].short_url}`,
+        last_accessed_at: moment(rows[0].last_access_at).format('dddd, MMMM Do YYYY, h:mm:ss a'),
+        access_count: rows[0].access_count
+      };
+
+      return res.status(200).send({ payload });
     })().catch(error => console.log(error));
   }
 };

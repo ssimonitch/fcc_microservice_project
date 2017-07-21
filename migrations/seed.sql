@@ -1,6 +1,5 @@
 INSERT INTO
   urls
 VALUES
-  ( default, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'https://www.google.com', 'http://bit.ly/IFHzvO'),
-  ( default, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'https://www.tastemade.com', 'http://bit.ly/W4Fkcs'),
-  ( default, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'https://www.facebook.com', 'http://bit.ly/18AOiDE');
+  ( DEFAULT, CURRENT_TIMESTAMP, 'https://sltls.org/', 'RS', CURRENT_TIMESTAMP, DEFAULT),
+  ( DEFAULT, CURRENT_TIMESTAMP, 'http://this.is.indeed.http.over.port.80.zovnds.org/', 'RT', CURRENT_TIMESTAMP, DEFAULT);
