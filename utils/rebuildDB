@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "--"
+echo "Rebuilding test database with seed data"
+echo "--"
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+psql 	postgres://cxanwcal:Nkz_Nw_9BSMhtMjrFIU9W3737CWl05ui@pellefant.db.elephantsql.com:5432/cxanwcal < migrations/schema.down.sql
+psql 	postgres://cxanwcal:Nkz_Nw_9BSMhtMjrFIU9W3737CWl05ui@pellefant.db.elephantsql.com:5432/cxanwcal < migrations/schema.up.sql
+psql 	postgres://cxanwcal:Nkz_Nw_9BSMhtMjrFIU9W3737CWl05ui@pellefant.db.elephantsql.com:5432/cxanwcal < migrations/seed.sql
