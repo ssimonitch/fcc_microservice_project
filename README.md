@@ -10,7 +10,7 @@ Current status:
 - [x] Request Header Parser Microservice
 - [x] URL Shortener Microservice
 - [x] Image Search Abstraction Layer
-- [ ] File Metadata Microservice
+- [x] File Metadata Microservice
 
 Other todos:
 - [ ] Add custom styling
