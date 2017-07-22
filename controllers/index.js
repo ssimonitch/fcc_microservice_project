@@ -2,8 +2,10 @@ const db = require('../db');
 const isUrl = require('is-url');
 const moment = require('moment');
 const platform = require('platform');
+const fetch = require('node-fetch');
 
-const utils = require('../utils/base36');
+const base36 = require('../utils/base36');
+const helpers = require('../utils/helpers');
 
 module.exports = {
 
@@ -63,7 +65,7 @@ module.exports = {
       `, [date, date, long_url]);
 
       // generate short_url from id
-      const short_url = utils.encode(id);
+      const short_url = base36.encode(id);
 
       // insert short_url into row
       await db.query('UPDATE urls SET short_url=$1 WHERE id=$2', [short_url, id]);
@@ -87,6 +89,9 @@ module.exports = {
         return res.status(404).send({error: 'Not found'});
       }
 
+      // don't cache so it rolls each time
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+
       // retrieve long_url, update last_access_at and update count
       try {
         await db.query('BEGIN');
@@ -104,6 +109,14 @@ module.exports = {
           `, [short_url]);
 
         await db.query('COMMIT');
+
+        // RICK ROLL
+        let roll = await Math.floor(Math.random() * 100) + 1;
+        if (roll === 69) {
+          console.log('Hold on to your butts');
+          return res.redirect(301, 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+        }
+
         await res.redirect(301, long_url);
       } catch (error) {
         await db.query('ROLLBACK');
@@ -145,5 +158,59 @@ module.exports = {
 
       return res.status(200).send({ payload });
     })().catch(error => console.log(error));
-  }
+  },
+
+  // image search controller
+  // API REF: https://msdn.microsoft.com/en-us/library/dn760791.aspx
+  imageSearch (req, res) {
+    // grab stuff
+    const query = req.params[0].split(' ').join('+');
+    const offset = req.query['offset'] || 1;
+
+    if (!query) {
+      return res.status(404).send({ error: 'invalid parameters'});
+    }
+
+    // set up query params
+    const endpoint = 'https://api.cognitive.microsoft.com/bing/v5.0/images';
+    const key = '0a5ac8d039a94cfdbf943c42f561b85d';
+    const queryString = `/search?q=${query}&mkt=en-us&count=10&offset=${offset}`;
+    const init = {
+      method: 'GET',
+      headers: {
+        'Ocp-Apim-Subscription-Key': key,
+        'Content-Type': 'multipart/form-data'
+      }
+    };
+
+    // stop. it's query time.
+    fetch(endpoint + queryString, init)
+    .then(res => {
+      return res.json();
+    }).then(data => {
+      let payload = [];
+
+      // build array of objects for response
+      data.value.forEach(image => {
+
+        const imageUrl = helpers.parseSearchUrl(image.contentUrl);
+        const webUrl = helpers.parseSearchUrl(image.contentUrl);
+
+        // build object to send
+        const object = {
+          url: imageUrl,
+          snippet: image.name,
+          thumbnail: (image.thumbnailUrl).split('&pid=Api')[0],
+          context: webUrl
+        };
+        payload.push(object);
+      });
+
+      res.status(200).send({ payload });
+    }).then(() => {
+      const date = moment().format();
+      // log search in db
+      return db.query('INSERT INTO image_queries(created_at, term) VALUES($1, $2)', [date, req.params[0]]);
+    }).catch(error => console.log(error));
+  },
 };

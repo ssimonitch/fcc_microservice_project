@@ -9,7 +9,7 @@ Current status:
 - [x] Timestamp Microservice
 - [x] Request Header Parser Microservice
 - [x] URL Shortener Microservice
-- [ ] Image Search Abstraction Layer
+- [x] Image Search Abstraction Layer
 - [ ] File Metadata Microservice
 
 Other todos:
