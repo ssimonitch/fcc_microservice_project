@@ -8,3 +8,9 @@ CREATE TABLE urls (
 );
 
 ALTER SEQUENCE urls_id_seq RESTART WITH 1000;
+
+CREATE TABLE image_queries (
+  id serial primary key,
+  created_at timestamptz not null,
+  term text
+);

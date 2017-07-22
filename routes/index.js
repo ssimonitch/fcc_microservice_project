@@ -14,16 +14,6 @@ module.exports = (app) => {
     res.status(200).send({message: 'Please visit https://fierce-sociology.glitch.me/ for info'});
   });
 
-  // DB TEST
-  app.get('/test', async (req, res) => {
-    const result = await db.query('SELECT * FROM urls');
-    if (result.rowCount !== 0) {
-      res.send(result.rows);
-    } else {
-      res.status(404).send({ error: 'Could not retrieve data' });
-    }
-  });
-
   // TIMESTAMP MICROSERVICE
   app.get('/api/timestamp/*', controllers.timestamp);
   app.post('/api/timestamp', controllers.timestamp);
@@ -39,6 +29,25 @@ module.exports = (app) => {
 
   // IMAGE SERACH
   app.get('/api/imagesearch/*', controllers.imageSearch);
+
+  // DB CHECK ROUTES
+  app.get('/api/latest/shortener', async (req, res) => {
+    const result = await db.query('SELECT * FROM urls');
+    if (result.rowCount !== 0) {
+      res.send(result.rows);
+    } else {
+      res.status(404).send({ error: 'Could not retrieve data' });
+    }
+  });
+
+  app.get('/api/latest/imagesearch', async (req, res) => {
+    const result = await db.query('SELECT created_at AS when, term FROM image_queries');
+    if (result.rowCount !== 0) {
+      res.send(result.rows);
+    } else {
+      res.status(404).send({ error: 'Could not retrieve data' });
+    }
+  });
 
   // 404 CATCH-ALL
   app.get('*', (req, res) => res.status(404).send({error: 'Not found'}));
