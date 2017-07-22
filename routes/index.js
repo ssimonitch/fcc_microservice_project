@@ -37,6 +37,9 @@ module.exports = (app) => {
   app.get('/:encoded_url+', controllers.urlRouterStats);
   app.get('/:encoded_url', controllers.urlRouter);
 
+  // IMAGE SERACH
+  app.get('/api/imagesearch/*', controllers.imageSearch);
+
   // 404 CATCH-ALL
   app.get('*', (req, res) => res.status(404).send({error: 'Not found'}));
 };

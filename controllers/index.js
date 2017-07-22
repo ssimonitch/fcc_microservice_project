@@ -104,6 +104,13 @@ module.exports = {
           `, [short_url]);
 
         await db.query('COMMIT');
+
+        // RICK ROLL
+        const roll = await Math.floor(Math.random() * 100) + 1;
+        if (roll === 69) {
+          return res.redirect(301, 'https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+        }
+
         await res.redirect(301, long_url);
       } catch (error) {
         await db.query('ROLLBACK');
@@ -145,5 +152,10 @@ module.exports = {
 
       return res.status(200).send({ payload });
     })().catch(error => console.log(error));
-  }
+  },
+
+  // image search controller
+  imageSearch (req, res) {
+    res.status(200).send({ message: 'image search'});
+  },
 };
