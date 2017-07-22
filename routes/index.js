@@ -30,6 +30,10 @@ module.exports = (app) => {
   // IMAGE SERACH
   app.get('/api/imagesearch/*', controllers.imageSearch);
 
+  // FILE METADATA
+  app.post('/api/filesize', controllers.fileSize);
+  app.get('/api/filesize/results', controllers.fileResult);
+
   // DB CHECK ROUTES
   app.get('/api/latest/shortener', async (req, res) => {
     const result = await db.query('SELECT * FROM urls');

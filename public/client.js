@@ -52,4 +52,30 @@ $(function() {
     $('input[name=\'long_url\']').val('');
   });
 
+  // file upload handlers
+  $('#file-upload').change(function() {
+    var file = this.files[0];
+
+    var fileData = {
+      name: file.name,
+      size: file.size,
+      type: file.type,
+      lastModified: file.lastModified
+    };
+
+    $('#file-selection').text(fileData.name);
+
+    $('#filesize-form').submit(function(event) {
+      event.preventDefault();
+
+      var endpoint = $('#filesize-form').attr('action');
+
+      var post = $.post(endpoint, JSON.stringify(fileData), 'json');
+
+      post.done(function() {
+        window.location.href = window.location.origin + '/api/filesize/results';
+      });
+
+    });
+  });
 });

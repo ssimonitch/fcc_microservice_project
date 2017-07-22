@@ -44,7 +44,7 @@
 
       <div id="timestamp-demo">
         <h3>Demo</h3>
-        <form action="/api/timestamp" id="timestamp-form">
+        <form action="/api/timestamp" id="timestamp-form" class="demo">
           <div class="form-field">
             <label for="date">Enter date in any format (including UNIX)</label>
             <input name="date" type="text">
@@ -101,7 +101,7 @@
 
       <div id="shorten-demo">
         <h3>Demo</h3>
-        <form action="/api/shorten" id="shorten-form">
+        <form action="/api/shorten" id="shorten-form" class="demo">
           <div class="form-field">
             <label for="long_url">Enter a url to shorten</label>
             <input name="long_url" type="url">
@@ -147,6 +147,29 @@
         <em>*Search powered by <a href="https://msdn.microsoft.com/en-us/library/dn760791.aspx" target="_blank">Microsoft Developer Network</a>.</em>
       </div>
     </section>
+
+    <section id="filesize-api">
+      <h2>File Metadata Microservice</h2>
+      <h3>Usage</h3>
+      <div>
+        Submit a file to receive the file size in bytes.
+      </div>
+
+      <div id="filesize-demo">
+        <h3>Demo</h3>
+        <form action="/api/filesize/" id="filesize-form" class="demo">
+          <div class="form-field">
+            <label for="file-upload" class="file-upload">Select File</label>
+            <input name="file-upload" type="file" id="file-upload">
+            <span id="file-selection">No file selected</span>
+          </div>
+          <div class="form-field">
+            <button>Send</button>
+          </div>
+        </form>
+      </div>
+
+    </section>
   </main>
 
   <footer>
@@ -155,8 +178,9 @@
       </a>
   </footer>
 
-  <!-- Your web-app is https, so your scripts need to be too -->
   <script src="https://code.jquery.com/jquery-2.2.1.min.js" integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+
   <script src="/client.js"></script>
 
 </body>

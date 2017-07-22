@@ -14,3 +14,11 @@ CREATE TABLE image_queries (
   created_at timestamptz not null,
   term text
 );
+
+CREATE TABLE file_data (
+  id serial primary key,
+  file_name text not null,
+  file_size int not null,
+  file_type text not null,
+  lastModified timestamptz not null
+);

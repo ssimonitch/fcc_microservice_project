@@ -61,8 +61,9 @@ a {
   text-decoration: none;
 }
 
-li {
-  margin-bottom: 5px;
+label {
+  display: inline-block;
+  margin-bottom: 10px;
 }
 
 footer {
@@ -76,6 +77,41 @@ footer > a {
 }
 
 /* DANK STYLES */
+
+.demo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 80px;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.file-upload {
+  font-size: 16px;
+  border-radius: 3px;
+  background-color: lightgrey;
+  border: 1px solid grey;
+  box-shadow: 2px 2px teal;
+  cursor: pointer;
+  padding: 1px 6px;
+}
+
+.file-upload:hover {
+  background-color: yellow;
+}
+
+.file-upload:active {
+  box-shadow: none;
+}
+
+#file-selection {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+}
 
 .code-block {
   display: table;

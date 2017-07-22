@@ -213,4 +213,53 @@ module.exports = {
       return db.query('INSERT INTO image_queries(created_at, term) VALUES($1, $2)', [date, req.params[0]]);
     }).catch(error => console.log(error));
   },
+
+  fileSize (req, res) {
+    let { name, size, type, lastModified } = req.body;
+
+    if (!size) {
+      return res.status(404).send({ error: 'Invalid data'});
+    }
+
+    // size = helpers.formatBytes(size);
+    lastModified = moment(lastModified).format();
+
+    ( async () => {
+      const { rows } = await db.query(`
+        INSERT INTO file_data(file_name, file_size, file_type, lastModified)
+        VALUES($1, $2, $3, $4)
+        RETURNING id;
+      `, [name, size, type, lastModified]);
+
+      // reset cookie
+      res.clearCookie('file_id');
+      res.cookie('file_id', rows[0].id);
+      return res.status(200).send({ file_size: size });
+    })().catch(error => console.log(error));
+  },
+
+  fileResult (req, res) {
+    const id = req.cookies.file_id;
+
+    if (!id) {
+      return req.send({error: 'Could not find file data'});
+    }
+
+    ( async () => {
+      const result = await db.query('SELECT * FROM file_data WHERE id=$1', [id]);
+      if (result.rowCount !== 0) {
+
+        const payload = {
+          name: result.rows[0].file_name,
+          size: helpers.formatBytes(result.rows[0].file_size),
+          type: result.rows[0].file_type,
+          lastModified: moment(result.rows[0].lastModified).format()
+        };
+
+        return res.send( { file_data: payload });
+      } else {
+        return res.status(404).send({ error: 'Could not retrieve data' });
+      }
+    })().catch(error => console.log(error));
+  }
 };
